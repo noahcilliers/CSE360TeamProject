@@ -1,5 +1,7 @@
 package guiAdminHome;
 
+import java.util.List;
+
 import database.Database;
 
 /*******
@@ -148,6 +150,12 @@ public class ControllerAdminHome {
 		ViewAdminHome.alertNotImplemented.setHeaderText("List User Issue");
 		ViewAdminHome.alertNotImplemented.setContentText("List Users Not Yet Implemented");
 		ViewAdminHome.alertNotImplemented.showAndWait();
+		
+	//	
+	//	List<String> users = Database.getUserList();
+	//	for(int i = 1; i<users.size(); i++){
+	//		System.out.println(users.get(i));
+	//}
 	}
 	
 	/**********
