@@ -1,5 +1,6 @@
 package guiAdminHome;
 
+import guiManageInvitations.ViewManageInvitations;
 import database.Database;
 
 /*******
@@ -95,11 +96,7 @@ public class ControllerAdminHome {
 	 * this function has not yet been implemented. </p>
 	 */
 	protected static void manageInvitations () {
-		System.out.println("\n*** WARNING ***: Manage Invitations Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.setTitle("*** WARNING ***");
-		ViewAdminHome.alertNotImplemented.setHeaderText("Manage Invitations Issue");
-		ViewAdminHome.alertNotImplemented.setContentText("Manage Invitations Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.showAndWait();
+		ViewManageInvitations.displayManageInvitations(ViewAdminHome.theStage);
 	}
 	
 	/**********

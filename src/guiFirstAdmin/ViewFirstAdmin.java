@@ -57,6 +57,7 @@ public class ViewFirstAdmin {
 					"Setup Admin Account.");
 	
 	protected static Label label_PasswordsDoNotMatch = new Label();
+	protected static Label label_UsernameNotValid = new Label();
 	protected static TextField text_AdminUsername = new TextField();
 	protected static PasswordField text_AdminPassword1 = new PasswordField();
 	protected static PasswordField text_AdminPassword2 = new PasswordField();
@@ -179,7 +180,10 @@ public class ViewFirstAdmin {
 		button_AdminSetup.setOnAction((_) -> {
 			ControllerFirstAdmin.doSetupAdmin(theStage,1); 
 			});
-
+		
+		// Label to display the username is not valid error message
+		setupLabelUI(label_UsernameNotValid, "Arial", 18, width, Pos.BASELINE_LEFT, 50,300);
+		
 		// Label to display the Passwords do not match error message
 		setupLabelUI(label_PasswordsDoNotMatch, "Arial", 18, width, Pos.CENTER, 0, 300);
 
@@ -190,7 +194,7 @@ public class ViewFirstAdmin {
 		theRootPane.getChildren().addAll(label_ApplicationTitle, label_TitleLine1,
 				label_TitleLine2, text_AdminUsername, text_AdminPassword1, 
 				text_AdminPassword2, button_AdminSetup, label_PasswordsDoNotMatch,
-				button_Quit);
+				button_Quit, label_UsernameNotValid);
 	}
 	
 	

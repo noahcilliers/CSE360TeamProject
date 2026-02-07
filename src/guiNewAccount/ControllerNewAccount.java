@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import database.Database;
 import entityClasses.User;
-
+import static guiFirstAdmin.ControllerFirstAdmin.validUsername;
 /*******
  * <p> Title: ControllerNewAccount Class. </p>
  * 
@@ -67,6 +67,21 @@ public class ControllerNewAccount {
 		String username = ViewNewAccount.text_Username.getText();
 		String password = ViewNewAccount.text_Password1.getText();
 		
+		// validate username
+		if (!validUsername(username)) {
+			ViewNewAccount.label_UsernameError.setText(
+						"Username must be 4-32 chars "
+						+ "\nStart with a letter"
+						+ "\nOnly user letters, numbers, ., -, _"
+						+ "\nSpecial Chars must be sandwichted by letter or numbers"
+						+ "\nSpecial Chars= ., -, _"
+						+ "\nExample: Good-name1.1"
+					);
+			return;
+		} else {
+			ViewNewAccount.label_UsernameError.setText("");
+		}
+		
 		// Display key information to the log
 		System.out.println("** Account for Username: " + username + "; theInvitationCode: "+
 				ViewNewAccount.theInvitationCode + "; email address: " + 
@@ -75,18 +90,7 @@ public class ControllerNewAccount {
 		// Initialize local variables that will be created during this process
 		int roleCode = 0;
 		User user = null;
-		
-	
-		
-		// Make sure the username starts with a letter
-		if(!Character.isLetter(ViewNewAccount.text_Username.getText().charAt(0)))
-		{
-			ViewNewAccount.text_Username.setText("");
-			ViewNewAccount.alertUsernameError.showAndWait();
-		}
-		else {
-		
-		
+
 		// Make sure the two passwords are the same.	
 		if (ViewNewAccount.text_Password1.getText().
 				compareTo(ViewNewAccount.text_Password2.getText()) == 0) {
@@ -140,7 +144,6 @@ public class ControllerNewAccount {
 			ViewNewAccount.text_Password1.setText("");
 			ViewNewAccount.text_Password2.setText("");
 			ViewNewAccount.alertUsernamePasswordError.showAndWait();
-		}
 		}
 	}
 

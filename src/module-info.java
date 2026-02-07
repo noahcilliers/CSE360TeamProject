@@ -3,4 +3,5 @@ module FoundationsF25 {
 	requires java.sql;
 	
 	opens applicationMain to javafx.graphics, javafx.fxml;
+	opens guiManageInvitations to javafx.base;
 }

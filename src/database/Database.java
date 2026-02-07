@@ -391,7 +391,7 @@ public class Database {
 	// Generates a new invitation code and inserts it into the database.
 	public String generateInvitationCode(String emailAddress, String role) {
 	    String code = UUID.randomUUID().toString().substring(0, 6); // Generate a random 6-character code
-	    String query = "INSERT INTO InvitationCodes (code, emailaddress, role) VALUES (?, ?, ?)";
+	    String query = "INSERT INTO InvitationCodes (code, emailAddress, role) VALUES (?, ?, ?)";
 
 	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
 	        pstmt.setString(1, code);
@@ -403,6 +403,53 @@ public class Database {
 	    }
 	    return code;
 	}
+	
+	public ArrayList<String[]> getAllInvitations()
+	{
+		ArrayList<String[]> list = new ArrayList<>();
+		
+		try
+		{
+			String sql = "SELECT code, emailAddress, role From InvitationCodes";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next())
+			{
+				list.add(new String[]
+						{
+								rs.getString("code"),
+								rs.getString("emailAddress"),
+								rs.getString("role")
+						});
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
+	public boolean removeInvitationByCode(String code)
+	{
+		try
+		{
+			String sql = "DELETE FROM InvitationCodes WHERE code = ?";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, code);
+			
+			int rows = ps.executeUpdate();
+			return rows > 0;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 
 	
 	/*******

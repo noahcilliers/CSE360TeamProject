@@ -49,6 +49,7 @@ public class ViewNewAccount {
 			new Label("Foundation Application Account Setup Page");
     protected static Label label_NewUserCreation = new Label(" User Account Creation.");
     protected static Label label_NewUserLine = new Label("Please enter a username and a password.");
+    protected static Label label_UsernameError = new Label();
     protected static TextField text_Username = new TextField();
     protected static PasswordField text_Password1 = new PasswordField();
     protected static PasswordField text_Password2 = new PasswordField();
@@ -60,9 +61,6 @@ public class ViewNewAccount {
 
 	// This alert is used should the user enter two passwords that do not match
 	protected static Alert alertUsernamePasswordError = new Alert(AlertType.INFORMATION);
-	
-	// This alert is used should the username does not start with a letter
-		protected static Alert alertUsernameError = new Alert(AlertType.INFORMATION);
 
     protected static Button button_Quit = new Button("Quit");
 
@@ -139,7 +137,7 @@ public class ViewNewAccount {
     	// Place all of the established GUI elements into the pane
     	theRootPane.getChildren().clear();
     	theRootPane.getChildren().addAll(label_NewUserCreation, label_NewUserLine, text_Username,
-    			text_Password1, text_Password2, button_UserSetup, button_Quit);    	
+    			text_Password1, text_Password2, button_UserSetup, button_Quit, label_UsernameError);    	
 
 		// Set the title for the window, display the page, and wait for the Admin to do something
 		theStage.setTitle("CSE 360 Foundation Code: New User Account Setup");	
@@ -193,11 +191,6 @@ public class ViewNewAccount {
 		alertUsernamePasswordError.setTitle("Passwords Do Not Match");
 		alertUsernamePasswordError.setHeaderText("The two passwords must be identical.");
 		alertUsernamePasswordError.setContentText("Correct the passwords and try again.");
-		
-		// If the first character does not start with a letter, this alert dialog will tell the user
-		alertUsernameError.setTitle("The username must start with a letter");
-		alertUsernameError.setHeaderText("The first character must be A-Z or a-z");
-		alertUsernameError.setContentText("Correct the username and try again.");
 
         // Set up the account creation and login
         setupButtonUI(button_UserSetup, "Dialog", 18, 200, Pos.CENTER, 475, 210);

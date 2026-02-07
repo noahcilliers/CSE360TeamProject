@@ -65,8 +65,28 @@ public class ControllerFirstAdmin {
 	 */
 	protected static void setAdminUsername() {
 		adminUsername = ViewFirstAdmin.text_AdminUsername.getText();
+		
+		// Check is the username entered is valid
+		if (!validUsername(adminUsername)) {
+			ViewFirstAdmin.label_UsernameNotValid.setText(
+					"Username must be 4-32 chars "
+					+ "\nStart with a letter"
+					+ "\nOnly user letters, numbers, ., -, _"
+					+ "\nSpecial Chars must be sandwichted by letter or numbers"
+					+ "\nSpecial Chars= ., -, _"
+					+ "\nExample: Good-name1.1");
+		} else {
+			ViewFirstAdmin.label_UsernameNotValid.setText("");
+		}
+		
 	}
 	
+	//Compares the username entered to see if it meets the reqs
+	public static boolean validUsername(String u) {
+		if (u== null) return false;
+		if (u.length() < 4 || u.length() > 32) return false;
+		return u.matches("^[A-Za-z][A-Za-z0-9]*([._-][A-Za-z0-9]+)*$");
+	}
 	
 	/**********
 	 * <p> Method: setAdminPassword1() </p>
@@ -104,8 +124,13 @@ public class ControllerFirstAdmin {
 	 */
 	protected static void doSetupAdmin(Stage ps, int r) {
 		
-		// Make sure the two passwords are the same and that the first letter is a letter
-		if (adminPassword1.compareTo(adminPassword2) == 0 && Character.isLetter(adminUsername.charAt(0))) {
+		if (!validUsername(adminUsername)) {
+			ViewFirstAdmin.label_UsernameNotValid.setText("Invalid username format.");
+			return;
+		}
+		
+		// Make sure the two passwords are the same
+		if (adminPassword1.compareTo(adminPassword2) == 0) {
         	// Create the passwords and proceed to the user home page
         	User user = new User(adminUsername, adminPassword1, "", "", "", "", "", true, false, 
         			false);
@@ -124,22 +149,12 @@ public class ControllerFirstAdmin {
         	guiUserUpdate.ViewUserUpdate.displayUserUpdate(ViewFirstAdmin.theStage, user);
 		}
 		else {
-			// check which error was flagged
-			if(!Character.isLetter(adminUsername.charAt(0)))
-			{
-				ViewFirstAdmin.text_AdminUsername.setText("");
-				ViewFirstAdmin.label_PasswordsDoNotMatch.setText(
-						"The username must start with a letter. Please try again!");
-				
-			}
 			// The two passwords are NOT the same, so clear the passwords, explain the passwords
 			// must be the same, and clear the message as soon as the first character is typed.
-			else {
 			ViewFirstAdmin.text_AdminPassword1.setText("");
 			ViewFirstAdmin.text_AdminPassword2.setText("");
 			ViewFirstAdmin.label_PasswordsDoNotMatch.setText(
 					"The two passwords must match. Please try again!");
-			}
 		}
 	}
 	
