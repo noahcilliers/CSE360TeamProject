@@ -157,9 +157,59 @@ public class ControllerAdminHome {
 		 
 		 // build string containing all users
 		 StringBuilder sb = new StringBuilder();
-	        for (int i = 1; i < users.size(); i++) {
-	            sb.append(users.get(i)).append("\n");
-	        }
+		 for (int i = users.size() - 1; i >= 1; i--) {
+			    String username = users.get(i);
+
+			    // Load user details
+			    if (!theDatabase.getUserAccountDetails(username)) {
+			        continue;
+			    }
+
+			    sb.append("Username: ").append(username).append("\n");
+
+			    sb.append("Name: ");
+			    String pref = theDatabase.getPreferredFirstName(users.get(i));
+			    if (pref != null && !pref.isEmpty()) {
+			        sb.append(pref).append(" ");
+			    } else {
+			        String fn = theDatabase.getFirstName(users.get(i));
+			        if (fn != null) sb.append(fn).append(" ");
+			    }
+
+			    String ln = theDatabase.getLastName(users.get(i));
+			    if (ln != null) sb.append(ln);
+
+			    sb.append("\n");
+
+			    sb.append("Email: ");
+			    String email = theDatabase.getEmailAddress(users.get(i));
+			    if (email != null) sb.append(email);
+
+			    sb.append("\n");
+
+			    sb.append("Roles: ");
+			    boolean hasRole = false;
+
+			    if (theDatabase.getAdminRole(users.get(i))) {
+			        sb.append("Admin ");
+			        hasRole = true;
+			    }
+			    if (theDatabase.getRole1(users.get(i))) {
+			        sb.append("Role1 ");
+			        hasRole = true;
+			    }
+			    if (theDatabase.getRole2(users.get(i))) {
+			        sb.append("Role2 ");
+			        hasRole = true;
+			    }
+
+			    if (!hasRole) {
+			        sb.append("None");
+			    }
+
+			    sb.append("\n");
+			    sb.append("----------------------------------\n");
+			}
 
 	        
 	     // create wrappable text ares
