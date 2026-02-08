@@ -228,7 +228,7 @@ public class Database {
  *  
  *  @return a list of userNames found in the database.
  */
-	public List<String> getUserList () {
+	public  List<String> getUserList () {
 		List<String> userList = new ArrayList<String>();
 		userList.add("<Select a User>");
 		String query = "SELECT userName FROM userDB";

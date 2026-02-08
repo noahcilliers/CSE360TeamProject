@@ -1,6 +1,8 @@
 package guiAdminHome;
 
 import java.util.List;
+import javafx.scene.control.TextArea;
+
 
 import database.Database;
 
@@ -46,7 +48,7 @@ public class ControllerAdminHome {
 	}
 	
 	// Reference for the in-memory database so this package has access
-	private static Database theDatabase = applicationMain.FoundationsMain.database;
+	private  static Database theDatabase = applicationMain.FoundationsMain.database;
 
 	/**********
 	 * <p> 
@@ -141,21 +143,38 @@ public class ControllerAdminHome {
 	 * 
 	 * Title: listUsers () Method. </p>
 	 * 
-	 * <p> Description: Protected method that is currently a stub informing the user that
-	 * this function has not yet been implemented. </p>
+	 * <p> Description: Protected method gives an alert containing all of the registered users</p>
+	 * 
+	 * @author Noah Cilliers
+	 * 
+	 * 
 	 */
 	protected static void listUsers() {
-		System.out.println("\n*** WARNING ***: List Users Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.setTitle("*** WARNING ***");
-		ViewAdminHome.alertNotImplemented.setHeaderText("List User Issue");
-		ViewAdminHome.alertNotImplemented.setContentText("List Users Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.showAndWait();
 		
-	//	
-	//	List<String> users = Database.getUserList();
-	//	for(int i = 1; i<users.size(); i++){
-	//		System.out.println(users.get(i));
-	//}
+		// list containing all the users
+		
+		List<String> users = theDatabase.getUserList();
+		 
+		 // build string containing all users
+		 StringBuilder sb = new StringBuilder();
+	        for (int i = 1; i < users.size(); i++) {
+	            sb.append(users.get(i)).append("\n");
+	        }
+
+	        
+	     // create wrappable text ares
+	        TextArea textArea = new TextArea(sb.toString());
+	        textArea.setEditable(false);
+	        textArea.setWrapText(false);
+
+	        textArea.setMaxWidth(Double.MAX_VALUE);
+	        textArea.setMaxHeight(Double.MAX_VALUE);
+
+	     // alert
+	        ViewAdminHome.alertListUsers.setTitle("List Users");
+	        ViewAdminHome.alertListUsers.setHeaderText("Registered Users (" + (users.size() - 1) + ")");
+	        ViewAdminHome.alertListUsers.getDialogPane().setContent(textArea);
+	        ViewAdminHome.alertListUsers.showAndWait();
 	}
 	
 	/**********
