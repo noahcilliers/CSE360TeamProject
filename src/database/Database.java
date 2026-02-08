@@ -404,6 +404,14 @@ public class Database {
 	    return code;
 	}
 	
+	/*
+	 * Retrieves all invitation record from the InvitationCodes table
+	 * 
+	 * each record returned contains code, email, and role.
+	 * 
+	 * The method queries the database and stores each row
+	 * As a string in the following order code, email, and role
+	 */
 	public ArrayList<String[]> getAllInvitations()
 	{
 		ArrayList<String[]> list = new ArrayList<>();
@@ -432,6 +440,12 @@ public class Database {
 		return list;
 	}
 	
+	/*
+	 * Deletes an invitation from the database using its code
+	 * 
+	 * this method executes a DELETE SQL statement and
+	 * returns true if successfully removed 
+	 */
 	public boolean removeInvitationByCode(String code)
 	{
 		try

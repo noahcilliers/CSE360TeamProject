@@ -92,8 +92,8 @@ public class ControllerAdminHome {
 	 * 
 	 * Title: manageInvitations () Method. </p>
 	 * 
-	 * <p> Description: Protected method that is currently a stub informing the user that
-	 * this function has not yet been implemented. </p>
+	 * <p> Description: method that displays after pressing 
+	 * the manage invitations button </p>
 	 */
 	protected static void manageInvitations () {
 		ViewManageInvitations.displayManageInvitations(ViewAdminHome.theStage);
