@@ -1041,6 +1041,48 @@ public class Database {
 	}
 	
 	
+/*******
+ *  <p> Method: void deleteUserByUserName(String userName) </p>
+ *  
+ *  <P> Description: Deletes a user given the user's username. </p>
+ *  
+ *  @param user specifies the specific user that should be deleted.
+ *  
+ *  @author Roberto Zozaya
+ */	
+	
+	public void deleteUserByUserName(String userName) {
+	    String query = "DELETE FROM userDB WHERE userName = ?";
+	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	        pstmt.setString(1, userName);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) { }
+	}
+	
+	
+	/*******
+	 *  <p> Method: boolean isUserAdmin(String userName) </p>
+	 *  
+	 *  <P> Description: Checks if a user is an admin given the user's username. </p>
+	 *  
+	 *  @param userName specifies which user is being checked for the Admin role.
+	 *  
+	 *  @author Roberto Zozaya
+	 */	
+	
+	public boolean isUserAdmin(String userName) {
+	    String query = "SELECT adminRole FROM userDB WHERE userName = ?";
+	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	        pstmt.setString(1, userName);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) return rs.getBoolean("adminRole");
+	    } catch (SQLException e) { }
+	    return false;
+	}
+	
+
+	
+	
 	// Attribute getters for the current user
 	/*******
 	 * <p> Method: String getCurrentUsername() </p>
