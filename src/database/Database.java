@@ -228,7 +228,7 @@ public class Database {
  *  
  *  @return a list of userNames found in the database.
  */
-	public List<String> getUserList () {
+	public  List<String> getUserList () {
 		List<String> userList = new ArrayList<String>();
 		userList.add("<Select a User>");
 		String query = "SELECT userName FROM userDB";
@@ -767,7 +767,7 @@ public class Database {
 	        ResultSet rs = pstmt.executeQuery();
 	        
 	        if (rs.next()) {
-	            return rs.getString("firstName"); // Return the preferred first name if user exists
+	            return rs.getString("preferredFirstName"); // Return the preferred first name if user exists
 	        }
 			
 	    } catch (SQLException e) {
@@ -853,6 +853,92 @@ public class Database {
 	        e.printStackTrace();
 	    }
 	}
+	
+	
+	/*******
+	 * <p> Method: String getAdmin(String username) </p>
+	 * 
+	 * <p> Description: Get the admin status given that user's username.</p>
+	 * 
+	 * @param username is the username of the user
+	 * 
+	 * @return the boolean of a user's admin status given that user's username 
+	 *  
+	 */
+	// get the admin status
+	
+	
+	
+	public boolean getAdminRole(String username) {
+	    String query = "SELECT adminRole FROM userDB WHERE userName = ?";
+	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	        pstmt.setString(1, username);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getBoolean("adminRole");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	
+	
+	
+	/*******
+	 * <p> Method: String getRole1(String username) </p>
+	 * 
+	 * <p> Description: Get the Role1 status given that user's username.</p>
+	 * 
+	 * @param username is the username of the user
+	 * 
+	 * @return the boolean of a user's Role1 status given that user's username 
+	 *  
+	 */
+	// get the Role1 status
+	
+	public boolean getRole1(String username) {
+	    String query = "SELECT newRole1 FROM userDB WHERE userName = ?";
+	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	        pstmt.setString(1, username);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getBoolean("newRole1");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	
+	/*******
+	 * <p> Method: String getRole2(String username) </p>
+	 * 
+	 * <p> Description: Get the Role2 status given that user's username.</p>
+	 * 
+	 * @param username is the username of the user
+	 * 
+	 * @return the boolean of a user's Role2 status given that user's username 
+	 *  
+	 */
+	// get the Role1 status
+	
+	public boolean getRole2(String username) {
+	    String query = "SELECT newRole2 FROM userDB WHERE userName = ?";
+	    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+	        pstmt.setString(1, username);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getBoolean("newRole2");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	
+	
+	
 	
 	
 	/*******

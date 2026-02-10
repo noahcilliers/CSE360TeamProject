@@ -91,6 +91,7 @@ public class ViewUserUpdate {
 	// This button enables the user to finish working on this page and proceed to the user's home
 	// page determined by the user's role at the time of log in.
 	private static Button button_ProceedToUserHomePage = new Button("Proceed to the User Home Page");
+	private static Button button_ProceedToLogInPage = new Button("Proceed to the Log In Page");
 	
 	// This is the end of the GUI widgets for this page.
 	
@@ -345,10 +346,10 @@ public class ViewUserUpdate {
  		});
         
         // Set up the button to proceed to this user's home page
-        setupButtonUI(button_ProceedToUserHomePage, "Dialog", 18, 300, 
+        setupButtonUI(button_ProceedToLogInPage, "Dialog", 18, 300, 
         		Pos.CENTER, width/2-150, 450);
-        button_ProceedToUserHomePage.setOnAction((_) -> 
-        	{ControllerUserUpdate.goToUserHomePage(theStage, theUser);});
+        button_ProceedToLogInPage.setOnAction((_) -> 
+        	{guiUserLogin.ViewUserLogin.displayUserLogin(theStage);});
     	
         // Populate the Pane's list of children widgets
         theRootPane.getChildren().addAll(
@@ -362,7 +363,7 @@ public class ViewUserUpdate {
         		label_PreferredFirstName, label_CurrentPreferredFirstName,
         		button_UpdatePreferredFirstName, button_UpdateEmailAddress,
         		label_EmailAddress, label_CurrentEmailAddress, 
-        		button_ProceedToUserHomePage);
+        		button_ProceedToUserHomePage, button_ProceedToLogInPage);
 	}
 	
 	

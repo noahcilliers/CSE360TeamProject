@@ -1,5 +1,9 @@
 package guiAdminHome;
 
+import java.util.List;
+import javafx.scene.control.TextArea;
+
+
 import database.Database;
 
 /*******
@@ -44,7 +48,7 @@ public class ControllerAdminHome {
 	}
 	
 	// Reference for the in-memory database so this package has access
-	private static Database theDatabase = applicationMain.FoundationsMain.database;
+	private  static Database theDatabase = applicationMain.FoundationsMain.database;
 
 	/**********
 	 * <p> 
@@ -136,15 +140,88 @@ public class ControllerAdminHome {
 	 * 
 	 * Title: listUsers () Method. </p>
 	 * 
-	 * <p> Description: Protected method that is currently a stub informing the user that
-	 * this function has not yet been implemented. </p>
+	 * <p> Description: Protected method gives an alert containing all of the registered users</p>
+	 * 
+	 * @author Noah Cilliers
+	 * 
+	 * 
 	 */
 	protected static void listUsers() {
-		System.out.println("\n*** WARNING ***: List Users Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.setTitle("*** WARNING ***");
-		ViewAdminHome.alertNotImplemented.setHeaderText("List User Issue");
-		ViewAdminHome.alertNotImplemented.setContentText("List Users Not Yet Implemented");
-		ViewAdminHome.alertNotImplemented.showAndWait();
+		
+		// list containing all the users
+		
+		List<String> users = theDatabase.getUserList();
+		 
+		 // build string containing all users
+		 StringBuilder sb = new StringBuilder();
+		 for (int i = users.size() - 1; i >= 1; i--) {
+			    String username = users.get(i);
+
+			    // Load user details
+			    if (!theDatabase.getUserAccountDetails(username)) {
+			        continue;
+			    }
+
+			    sb.append("Username: ").append(username).append("\n");
+
+			    sb.append("Name: ");
+			    String pref = theDatabase.getPreferredFirstName(users.get(i));
+			    if (pref != null && !pref.isEmpty()) {
+			        sb.append(pref).append(" ");
+			    } else {
+			        String fn = theDatabase.getFirstName(users.get(i));
+			        if (fn != null) sb.append(fn).append(" ");
+			    }
+
+			    String ln = theDatabase.getLastName(users.get(i));
+			    if (ln != null) sb.append(ln);
+
+			    sb.append("\n");
+
+			    sb.append("Email: ");
+			    String email = theDatabase.getEmailAddress(users.get(i));
+			    if (email != null) sb.append(email);
+
+			    sb.append("\n");
+
+			    sb.append("Roles: ");
+			    boolean hasRole = false;
+
+			    if (theDatabase.getAdminRole(users.get(i))) {
+			        sb.append("Admin ");
+			        hasRole = true;
+			    }
+			    if (theDatabase.getRole1(users.get(i))) {
+			        sb.append("Role1 ");
+			        hasRole = true;
+			    }
+			    if (theDatabase.getRole2(users.get(i))) {
+			        sb.append("Role2 ");
+			        hasRole = true;
+			    }
+
+			    if (!hasRole) {
+			        sb.append("None");
+			    }
+
+			    sb.append("\n");
+			    sb.append("----------------------------------\n");
+			}
+
+	        
+	     // create wrappable text ares
+	        TextArea textArea = new TextArea(sb.toString());
+	        textArea.setEditable(false);
+	        textArea.setWrapText(false);
+
+	        textArea.setMaxWidth(Double.MAX_VALUE);
+	        textArea.setMaxHeight(Double.MAX_VALUE);
+
+	     // alert
+	        ViewAdminHome.alertListUsers.setTitle("List Users");
+	        ViewAdminHome.alertListUsers.setHeaderText("Registered Users (" + (users.size() - 1) + ")");
+	        ViewAdminHome.alertListUsers.getDialogPane().setContent(textArea);
+	        ViewAdminHome.alertListUsers.showAndWait();
 	}
 	
 	/**********
